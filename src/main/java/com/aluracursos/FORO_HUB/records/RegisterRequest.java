@@ -1,4 +1,4 @@
-package com.aluracursos.FORO_HUB.service;
+package com.aluracursos.FORO_HUB.records;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;

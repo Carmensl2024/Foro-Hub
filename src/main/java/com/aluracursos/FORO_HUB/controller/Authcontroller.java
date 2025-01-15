@@ -1,5 +1,9 @@
 package com.aluracursos.FORO_HUB.controller;
 
+import com.aluracursos.FORO_HUB.records.AuthResponse;
+import com.aluracursos.FORO_HUB.records.LoginRequest;
+import com.aluracursos.FORO_HUB.records.RegisterRequest;
+import com.aluracursos.FORO_HUB.records.RegisterResponse;
 import com.aluracursos.FORO_HUB.service.*;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;

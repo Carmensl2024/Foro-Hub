@@ -1,4 +1,4 @@
-package com.aluracursos.FORO_HUB.service;
+package com.aluracursos.FORO_HUB.records;
 
 public record AuthResponse(
         String message,
