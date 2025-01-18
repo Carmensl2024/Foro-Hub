@@ -5,7 +5,6 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.apache.logging.log4j.message.Message;
 import org.springframework.boot.autoconfigure.kafka.KafkaProperties;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -15,51 +14,52 @@ import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
 
-//import static java.util.stream.Nodes.collect;
-//import static jdk.nio.zipfs.ZipFileAttributeView.AttrID.permissions;
 
-//public enum Permisos {
-//    CREATE, READ, UPDATE, DELETE
-//}
 @Entity
-    @Getter
-    @Setter
-    @NoArgsConstructor
-    @AllArgsConstructor
-    @Table(name = "Usuarios")
-    public class User implements UserDetails {
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@Table(name = "Usuarios")
+public class User implements UserDetails {
 
-        @Id
-        @GeneratedValue(strategy = GenerationType.IDENTITY)
-        private Long id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
-        private String name;
-        @Column(unique = true)
-        private String username;
-        private String password;
-        @Enumerated(EnumType.STRING)
-        private Role role;
+    private String name;
+    @Column(unique = true)
+    private String username;
+    private String password;
+    @Enumerated(EnumType.STRING)
+    private Role role;
 
-        @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
-        private List<KafkaProperties.Retry.Topic> topics;
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Topic> topics;
 
-        @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
-        private List<Message> messages;
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Message> messages;
 
-        @Override
-        public Collection<? extends GrantedAuthority> getAuthorities() {
+    @Override
+    public String toString() {
+        return "User{" +
+                "name='" + name + '\'' +
+                ", username='" + username + '\'' +
+                '}';
+    }
 
-            List<GrantedAuthority> authorities = role.getPermisos()
-                    .stream()
-                    .map(permisos -> new SimpleGrantedAuthority(permisos.name()))
-                    .collect(Collectors.toList());
-
-
-            authorities.add(new SimpleGrantedAuthority("ROLE_" + role.name()));
-            return authorities;
-        }
-
-
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+//        List<GrantedAuthority> authorities = role.getPermisos()
+//                .stream()
+//                .map(permisos -> new SimpleGrantedAuthority(permisos.name()))
+//                .collect(Collectors.toList());
+//
+//
+//        authorities.add(new SimpleGrantedAuthority("ROLE_" + role.name()));
+//        return authorities;
+        return List.of(new SimpleGrantedAuthority("ROLE_USER"));
+    }
 
     @Override
     public boolean isAccountNonExpired() {

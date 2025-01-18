@@ -19,10 +19,10 @@ import org.springframework.web.bind.annotation.RestController;
 public class Authcontroller {
 
 
-    private final IAuthService authService;
+    private final AuthService authService;
 
     @Autowired
-    public Authcontroller(IAuthService authService) {
+    public Authcontroller(AuthService authService) {
         this.authService = authService;
     }
 
